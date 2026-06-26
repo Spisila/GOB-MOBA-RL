@@ -6,6 +6,12 @@
 #include <GlobalSettings.hpp>
 #include <MainCamera.hpp>
 
+#include <ECSManager.hpp>
+
+#include <Spawner.hpp>
+
+#include <DrawPrimitivesSystem.hpp>
+
 // Camera2D camera = { 0 };
 
 int main(int, char **)
@@ -17,6 +23,23 @@ int main(int, char **)
 
     Vector2 circle_position = {0.0f, 0.0f};
 
+    ECSManager ecs;
+
+    Spawner spawner(ecs);
+
+    DrawPrimitivesSystem draw_simple_system(ecs);
+
+    Component::Transform t_1{
+        {0, 0},
+        2,
+        0};
+
+    Component::Circle c_1{
+        200,
+        BLUE};
+
+    spawner.spawnCircle(t_1, c_1);
+
     bool is_moving = false;
 
     float move_speed = 5.0f;
@@ -25,6 +48,7 @@ int main(int, char **)
     SetTargetFPS(60);
     while (!WindowShouldClose())
     {
+
         main_cam.MoveGameCameraKeyboard();
         main_cam.updateGameCamera();
         Camera2D camera = main_cam.getGameCamera();
@@ -54,6 +78,7 @@ int main(int, char **)
 
         BeginMode2D(camera);
 
+        draw_simple_system.drawCircles();
         DrawCircle(0, 0, 5, WHITE);
         DrawCircle(circle_position.x, circle_position.y, 30, RED);
 

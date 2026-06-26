@@ -19,12 +19,20 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/include
 )
 
-add_executable(MOBA_CPP src/main.cpp
+add_executable(MOBA_CPP 
+    src/main.cpp
     include/main.hpp
     src/MainCamera.cpp
     include/MainCamera.hpp
     include/GlobalSettings.hpp
-    include/Utils.hpp)
+    include/DebugUtils.hpp
+    include/Spawner.hpp
+    src/Spawner.cpp
+    include/ECSManager.hpp
+    src/ECSManager.cpp
+    include/DrawPrimitivesSystem.hpp
+    src/DrawPrimitivesSystem.cpp
+    )
 
 target_link_libraries(MOBA_CPP PRIVATE raylib)
 
